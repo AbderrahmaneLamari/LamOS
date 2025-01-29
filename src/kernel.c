@@ -17,7 +17,9 @@
 #error "This tutorial needs to be compiled with a ix86-elf compiler"
 #endif
 
-void kernel_main(uint32_t magic, struct mutliboot_info* bootInfo) 
+void kernel_main(uint32_t magic, struct multiboot_info* bootInfo);
+
+void kernel_main(uint32_t magic, struct multiboot_info* bootInfo) 
 {
 	/* Initialize terminal interface */
 	terminal_initialize();

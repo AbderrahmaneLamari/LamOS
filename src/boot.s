@@ -84,6 +84,11 @@ _start:
 	stack since (pushed 0 bytes so far), so the alignment has thus been
 	preserved and the call is well defined.
 	*/
+
+	# pushing the memory map in ebx, pushing the magic in eax
+	# kernel(uint32_t magic, struct multibott_info* bootInfo) cdecl
+	push %ebx
+	push %eax 
 	call kernel_main
 
 	/*
