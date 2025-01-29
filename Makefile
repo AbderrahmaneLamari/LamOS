@@ -13,7 +13,7 @@ ASM_SRC = $(wildcard src/*.s)
 C_OBJ = $(patsubst src/%.c, build/%.o, $(C_SRC))
 ASM_OBJ = $(patsubst src/%.s, build/%.o, $(ASM_SRC))
 IMG_NAME = myos.bin
-ISO_NAME = myos.iso
+ISO_NAME = image
 
 # Default target
 all: $(IMG_NAME)

@@ -14,7 +14,7 @@
 extern const char scancode_to_char[KEYBOARD_SCANCODE_COUNT];
 
 // Function to initialize the keyboard interrupt
-void init_keyboard_interrupt(void);
+void init_keyboard(void);
 
 // Keyboard interrupt handler function
 void keyboard_handler(struct InterruptRegisters *regs);

@@ -1,4 +1,4 @@
-#include "stdint.h"
+#include <stdint.h>
 
 struct gdt_entry_struct{
     uint16_t limit;
