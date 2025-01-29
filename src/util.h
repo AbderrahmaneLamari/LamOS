@@ -2,6 +2,8 @@
 void memset(void *dest, char val, uint32_t count);
 void outPortB(uint16_t Port, uint8_t Value);
 
+
+#define CEIL_DIVISION(a, b) (((a)+(b)-1)/(b))
 struct InterruptRegisters{
     uint32_t cr2;
     uint32_t ds;

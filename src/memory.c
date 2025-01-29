@@ -1,22 +1,46 @@
 #include <stdint.h>
+#include "util.h"
 #include "stdio.h"
 #include "multiboot.h"
+#include "memory.h"
 
 
+static uint32_t FrameMin;
+static uint32_t FrameMax;
+static uint32_t totalAlloc;
 
-void initMemory(struct multiboot_info* bootInfo){
+#define NUM_PAGES_DIR 256
+#define NUM_PAGE_FRAMES (0x10000000 / 0x1000 / 8)
 
-    uint32_t offset = 0;
+uint8_t physicalMemoryBitmap[NUM_PAGE_FRAMES];
+
+static uint32_t pageDirs[NUM_PAGES_DIR][1024] __attribute__((aligned(4096)));
+static uint8_t pageDirUsed[NUM_PAGES_DIR];
+
+void pmm_init(uint32_t memLow, uint32_t memHigh){
+
+    FrameMin = CEIL_DIVISION(memLow, 0x1000);
+    FrameMax = memHigh / 0x1000;
+    totalAlloc = 0;
+
+    memset(physicalMemoryBitmap, 0, sizeof(physicalMemoryBitmap));
+}
+
+
+void initMemory(uint32_t memHigh, uint32_t physicalAddress){
+
+    boot_page_directory[0] = 0;
+    invalidate(0);
+
+    boot_page_directory[1023] = ((uint32_t) boot_page_directory - KERNEL_START);
+
+    invalidate(0xfffff000);
+
+    memset(pageDirs, 0, 0x1000 * NUM_PAGES_DIR);
+    memset(pageDirUsed, 0, NUM_PAGES_DIR);
+
+    //uint32_t offset = 0;
     
-    while (offset < bootInfo->mmap_length) {
-        struct multiboot_mmap_entry* mmmt = (struct multiboot_mmap_entry*)(bootInfo->mmap_addr + offset);
-
-        printf("Low Addr: %x | High Addr: %x | Length Low: %x | Length High: %x | Type: %d\n",
-            mmmt->addr_low, mmmt->addr_high, mmmt->len_low, mmmt->len_high, mmmt->type);
-
-        // Move to the next entry
-        offset += mmmt->size + 4;
-    }
     // for( uint32_t i = 0; i < bootInfo->mmap_length; i += sizeof(struct multiboot_mmap_entry))
     // {
     //     struct multiboot_mmap_entry *mmmt = (struct multiboot_mmap_entry*)(bootInfo->mmap_addr + i);
@@ -24,4 +48,9 @@ void initMemory(struct multiboot_info* bootInfo){
     //     printf("Low Addr: %x | High Addr: %x | Length Low: %x | Length High: %x | Type: %d",
     //         mmmt->addr_low, mmmt->addr_high, mmmt->len_low, mmmt->len_high, mmmt->type);
     // }
+}
+
+void invalidate(uint32_t vaddr){
+
+    asm volatile ("invlpg %0" :: "m"(vaddr));
 }

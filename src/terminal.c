@@ -3,7 +3,7 @@
 /* VGA buffer and dimensions */
 static const size_t VGA_WIDTH = 80;
 static const size_t VGA_HEIGHT = 25;
-static uint16_t* terminal_buffer = (uint16_t*) 0xB8000;
+static uint16_t* terminal_buffer = (uint16_t*) 0xC03FF000;
 
 /* Terminal state */
 static size_t terminal_row;
