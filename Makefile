@@ -41,3 +41,4 @@ $(ISO_NAME): $(IMG_NAME)
 # Clean up
 clean:
 	rm -rf build $(IMG_NAME) $(ISO_NAME)
+	rm -f *.o *.bin *.iso
