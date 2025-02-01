@@ -1,1 +1,1 @@
-qemu-system-i386 -kernel myos.bin -serial file:/dev/stdout
+qemu-system-i386 myos.iso -serial stdio -d int,cpu_reset

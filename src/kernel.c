@@ -21,24 +21,23 @@ void kernel_main(uint32_t magic, struct multiboot_info* bootInfo);
 
 void kernel_main(uint32_t magic, struct multiboot_info* bootInfo) 
 {
+	
 	/* Initialize terminal interface */
 	terminal_initialize();
-
+	
+	
 	/* Initialize the Global Descriptor Table */
 	initGdt();
-
+	
 	/* Load interrupt vector */
 	initIdt();
 
 	/* Initialize timer interrupt handler */
 	initTimer();
-
+	
 	/* Load Keyboard handler */
 	init_keyboard();
 
-	/* Initialize Memory */
-	//initMemory(bootInfo);
-	printf("Magic Value: %x", magic);
-
+	initMemory(bootInfo->mem_upper, 0x1000);
 	for(;;);
 }

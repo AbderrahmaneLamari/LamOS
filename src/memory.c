@@ -39,15 +39,11 @@ void initMemory(uint32_t memHigh, uint32_t physicalAddress){
     memset(pageDirs, 0, 0x1000 * NUM_PAGES_DIR);
     memset(pageDirUsed, 0, NUM_PAGES_DIR);
 
+    pmm_init(memHigh, physicalAddress);
+
     //uint32_t offset = 0;
     
-    // for( uint32_t i = 0; i < bootInfo->mmap_length; i += sizeof(struct multiboot_mmap_entry))
-    // {
-    //     struct multiboot_mmap_entry *mmmt = (struct multiboot_mmap_entry*)(bootInfo->mmap_addr + i);
 
-    //     printf("Low Addr: %x | High Addr: %x | Length Low: %x | Length High: %x | Type: %d",
-    //         mmmt->addr_low, mmmt->addr_high, mmmt->len_low, mmmt->len_high, mmmt->type);
-    // }
 }
 
 void invalidate(uint32_t vaddr){

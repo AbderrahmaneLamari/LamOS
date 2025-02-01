@@ -49,6 +49,10 @@ _start:
 	movl $1023, %ecx
 
 1:
+	# Map everything in the first 1MB (identity mapping)
+    cmpl $0x00100000, %esi   # If esi < 1MB, map it
+    jl 2f
+	
 	# Only map the kernel.
 	cmpl $_kernel_start, %esi
 	jl 2f
@@ -113,8 +117,8 @@ _start:
 	mov $stack_top, %esp
 
 	# Enter the high-level kernel.
-    pushl %ebx
-    pushl %eax
+    push %ebx
+    push %eax
 	call kernel_main
 
 	# Infinite loop if the system has nothing more to do.
