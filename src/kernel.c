@@ -38,6 +38,9 @@ void kernel_main(uint32_t magic, struct multiboot_info* bootInfo)
 	/* Load Keyboard handler */
 	init_keyboard();
 
-	initMemory(bootInfo->mem_upper, 0x1000);
+	printf("BootInfo: 0x%x\n", bootInfo);
+
+	
+
 	for(;;);
 }

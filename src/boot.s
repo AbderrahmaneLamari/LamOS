@@ -107,7 +107,7 @@ _start:
 	# At this point, paging is fully set up and enabled.
 
 	# Unmap the identity mapping as it is now unnecessary. 
-	movl $0, boot_page_directory + 0
+	# movl $0, boot_page_directory + 0
 
 	# Reload cr3 to force a TLB flush so the changes to take effect.
 	movl %cr3, %ecx

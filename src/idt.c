@@ -139,7 +139,7 @@ char* exception_messages[] = {
 void isr_handler(struct InterruptRegisters* regs){
     if (regs->int_no < 32){
         terminal_writestring(exception_messages[regs->int_no]);
-        terminal_writestring("\n");
+        terminal_writestring(" ");
         terminal_writestring("Exception! System Halted\n"); 
         for (;;);
     }

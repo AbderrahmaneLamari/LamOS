@@ -1,5 +1,5 @@
 
-extern uint32_t boot_page_directory[1024]; 
+extern uint8_t boot_page_directory[4096]; 
 
 
 void initMemory(uint32_t memHigh, uint32_t physicalAddress);

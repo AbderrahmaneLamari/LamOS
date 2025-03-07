@@ -29,24 +29,24 @@ void pmm_init(uint32_t memLow, uint32_t memHigh){
 
 void initMemory(uint32_t memHigh, uint32_t physicalAddress){
 
-    boot_page_directory[0] = 0;
-    invalidate(0);
+    // boot_page_directory[0] = 0;
+    // invalidate(0);
 
-    boot_page_directory[1023] = ((uint32_t) boot_page_directory - KERNEL_START);
+    // boot_page_directory[1023] = ((uint32_t) boot_page_directory - KERNEL_START);
 
-    invalidate(0xfffff000);
+    // invalidate(0xfffff000);
 
-    memset(pageDirs, 0, 0x1000 * NUM_PAGES_DIR);
-    memset(pageDirUsed, 0, NUM_PAGES_DIR);
+    // memset(pageDirs, 0, 0x1000 * NUM_PAGES_DIR);
+    // memset(pageDirUsed, 0, NUM_PAGES_DIR);
 
-    pmm_init(memHigh, physicalAddress);
-
-    //uint32_t offset = 0;
+    // pmm_init(memHigh, physicalAddress);
     
+    printf("This is the end of initMem\n");
 
 }
 
 void invalidate(uint32_t vaddr){
 
     asm volatile ("invlpg %0" :: "m"(vaddr));
+    
 }
